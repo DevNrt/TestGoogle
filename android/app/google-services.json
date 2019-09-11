@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "298940508593",
+    "firebase_url": "https://evoke-860c5.firebaseio.com",
+    "project_id": "evoke-860c5",
+    "storage_bucket": "evoke-860c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:298940508593:android:2065f8e4d685dba1003590",
+        "android_client_info": {
+          "package_name": "com.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "298940508593-i82gtgq75k9ng680o01agkq3j712h3i3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.test",
+            "certificate_hash": "df5d714c5952083f4e93a7216c114b9bc728dfc6"
+          }
+        },
+        {
+          "client_id": "298940508593-musmcn44b7p0j2mpe2rc5jl7l614s7qd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbKecsLF7PDHA9SWHhwtWCxI2Sjw4pkaA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "298940508593-musmcn44b7p0j2mpe2rc5jl7l614s7qd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
