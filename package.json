@@ -1,5 +1,5 @@
 {
-  "name": "test",
+  "name": "evoke",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -8,13 +8,14 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "link": "^0.1.5",
-    "prop-types": "^15.7.2",
+    "@babel/runtime": "^7.6.0",
     "react": "16.8.6",
-    "react-native": "^0.60.5",
-    "react-native-google-login": "^1.2.5",
-    "react-native-google-signin": "^0.10.0",
-    "react-native-sha1": "^1.2.3"
+    "react-native": "0.60.5",
+    "react-native-camera": "^3.4.0",
+    "react-native-gesture-handler": "^1.4.1",
+    "react-native-google-signin": "^2.0.0",
+    "react-navigation": "^4.0.5",
+    "react-navigation-stack": "^1.7.3"
   },
   "devDependencies": {
     "@babel/core": "7.6.0",
