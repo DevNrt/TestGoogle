@@ -1,105 +1,45 @@
 import React from 'react';
 import { AppRegistry, StyleSheet, Text, View, Alert, Button } from 'react-native';
-import { GoogleSignin, GoogleSigninButton, statusCodes } from 'react-native-google-signin';
-
-type ErrorWithCode = Error & { code?: string };
-
-type State = {
-  error: ?ErrorWithCode,
-  userInfo: ?User,
-};
+import { GoogleSignin, GoogleSigninButton, statusCodes, AsyncStorage } from 'react-native-google-signin';
 
 export default class AuthView extends React.Component {
-  state = {
-    userInfo: null,
-    error: null,
+
+  static navigationOptions = {
+    title: 'Evoke'
   };
 
-  async componentDidMount() {
-    this._configureGoogleSignIn();
-    //await this._getCurrentUser();
-  }
-
-  _configureGoogleSignIn() {
-    GoogleSignin.configure({
-      webClientId: '130442303187-mn6eee3f8nj26ls8ike2685qoi2uk8gq.apps.googleusercontent.com',
-      offlineAccess: false,
-    });
-  }
-
-  async _getCurrentUser() {
-    try {
-      const userInfo = await GoogleSignin.signInSilently();
-      this.setState({ userInfo, error: null });
-    } catch (error) {
-      const errorMessage =
-          error.code === statusCodes.SIGN_IN_REQUIRED ? 'Please sign in :)' : error.message;
-      this.setState({
-        error: new Error(errorMessage),
-      });
+  constructor(props) {
+    super(props);
+    this.state = {
+      navigate: this.props.navigation.navigate,
+      isAuthenticated: false
     }
   }
 
-  render() {
-    const { userInfo } = this.state;
 
-    const body = userInfo ? this.renderUserInfo(userInfo) : this.renderSignInButton();
+
+  storeToken = async (key, value) => {
+    try {
+      await AsyncStorage.setItem(key, value);
+    } catch (error) {
+      // Error saving data
+    }
+  };
+
+  render() {
+
+    const body = this.state.isAuthenticated ? this.renderSignOutButton() : this.renderSignInButton();
     return (
         <View style={[styles.container, { flex: 1 }]}>
-          {this.renderIsSignedIn()}
-          {this.renderGetCurrentUser()}
-          {this.renderGetTokens()}
           {body}
         </View>
     );
   }
 
-  renderIsSignedIn() {
-    return (
-        <Button
-            onPress={async () => {
-              const isSignedIn = await GoogleSignin.isSignedIn();
-              Alert.alert(String(isSignedIn));
-            }}
-            title="is user signed in?"
-        />
-    );
-  }
-
-  renderGetCurrentUser() {
-    return (
-        <Button
-            onPress={async () => {
-              const userInfo = await GoogleSignin.getCurrentUser();
-              Alert.alert('current user', userInfo ? JSON.stringify(userInfo.user) : 'null');
-            }}
-            title="get current user"
-        />
-    );
-  }
-
-  renderGetTokens() {
-    return (
-        <Button
-            onPress={async () => {
-              const isSignedIn = await GoogleSignin.getTokens();
-              Alert.alert('tokens', JSON.stringify(isSignedIn));
-            }}
-            title="get tokens"
-        />
-    );
-  }
-
-  renderUserInfo(userInfo) {
+  renderSignOutButton(){
     return (
         <View style={styles.container}>
-          <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 20 }}>
-            Welcome {userInfo.user.name}
-          </Text>
-          <Text>Your user info: {JSON.stringify(userInfo.user)}</Text>
-
-          <Button onPress={this._signOut} title="Log out" />
-          {this.renderError()}
+          <Button onPress={this.signOut} title="Log out" />
         </View>
     );
   }
@@ -111,27 +51,30 @@ export default class AuthView extends React.Component {
               style={{ width: 212, height: 48 }}
               size={GoogleSigninButton.Size.Standard}
               color={GoogleSigninButton.Color.Auto}
-              onPress={this._signIn}
+              onPress={this.signIn}
           />
-          {this.renderError()}
         </View>
     );
   }
 
-  renderError() {
-    const { error } = this.state;
-    if (!error) {
-      return null;
-    }
-    const text = `${error.toString()} ${error.code ? error.code : ''}`;
-    return <Text>{text}</Text>;
+  async goToProfile(){
+    const userInfo = await GoogleSignin.getCurrentUser();
+    this.state.navigate('ProfileView', {
+      email: userInfo.email,
+      name: userInfo.name,
+      id: userInfo.id
+    })
   }
 
-  _signIn = async () => {
+  signIn = async () => {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
       this.setState({ userInfo, error: null });
+      const token = await GoogleSignin.getTokens();
+      this.storeToken('google_token', JSON.stringify(token));
+      this.goToProfile();
+
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // sign in was cancelled
@@ -147,10 +90,11 @@ export default class AuthView extends React.Component {
           error,
         });
       }
+      this.state.navigate('HomeView');
     }
   };
 
-  _signOut = async () => {
+  signOut = async () => {
     try {
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();

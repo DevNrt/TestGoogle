@@ -4,6 +4,7 @@ import { RNCamera } from 'react-native-camera';
 
 
 export default class CameraView extends React.Component {
+
     constructor(props) {
         super(props);
         this.camera = null;
