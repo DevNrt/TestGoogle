@@ -2,7 +2,7 @@ import React from 'react';
 import { AppRegistry, View, Text } from 'react-native';
 import { ListItem } from 'react-native-elements'
 
-export default class HomeView extends React.Component {
+export default class MisionDetailView extends React.Component {
     static navigationOptions = {
         title: 'Evoke'
     };
@@ -94,16 +94,12 @@ export default class HomeView extends React.Component {
                             title={item.title}
                             topDivider
                             chevron
-                            onPress={() => { this.goToMision(item) }}
+                            onPress={() => { this.state.navigate('CartoonView', {mision: item}) }}
                         />
                     ))
                 }
             </View>
         );
-    }
-
-    goToMision(mision){
-        this.state.navigate('MisionDetailView', {mision})
     }
 }
 
@@ -116,4 +112,4 @@ const styles = {
     }
 };
 
-AppRegistry.registerComponent('HomeView', () => HomeView);
+AppRegistry.registerComponent('MisionDetailView', () => MisionDetailView);

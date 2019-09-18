@@ -7,6 +7,7 @@ import HomeView from './HomeView';
 import ProfileView from './ProfileView';
 import MisionListView from './MisionListView';
 import MisionDetailView from './MisionDetailView';
+import CartoonView from './CartoonView';
 
 const MainNavigator = createStackNavigator({
     HomeView: {screen: HomeView},
@@ -15,6 +16,7 @@ const MainNavigator = createStackNavigator({
     ProfileView: {screen: ProfileView},
     MisionListView: {screen: MisionListView},
     MisionDetailView: {screen: MisionDetailView},
+    CartoonView: {screen: CartoonView},
 
 });
 
