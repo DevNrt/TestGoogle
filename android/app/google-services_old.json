@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "130442303187-49tqo6c8893k2r8mk5jiake9b1rqof5v.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.evoke",
-            "certificate_hash": "854e0672989c5c8ab9297177aeaed6486661baae"
-          }
-        },
-        {
           "client_id": "130442303187-9jakfcnvg8rf1vshv4m9t03h8i3idtrg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
