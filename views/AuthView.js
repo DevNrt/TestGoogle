@@ -16,9 +16,18 @@ export default class AuthView extends React.Component {
     }
   }
 
+  async componentDidMount(){
+    this.configureGoogleSignIn();
+  }
 
+  configureGoogleSignIn() {
+    GoogleSignin.configure({
+      webClientId: '130442303187-mn6eee3f8nj26ls8ike2685qoi2uk8gq.apps.googleusercontent.com',
+      offlineAccess: false
+    });
+  }
 
-  storeToken = async (key, value) => {
+  async storeToken (key, value) {
     try {
       await AsyncStorage.setItem(key, value);
     } catch (error) {
@@ -85,7 +94,7 @@ export default class AuthView extends React.Component {
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         Alert.alert('play services not available or outdated');
       } else {
-        Alert.alert('Something went wrong', error.toString());
+        Alert.alert('Something went wrong', JSON.stringify(error));
         this.setState({
           error,
         });

@@ -35,26 +35,26 @@ export default class ProfileView extends React.Component {
                     <View>
                         <Image
                             style={styles.avatar}
-                            source={require('./images/avatar.png')}
+                            source={require('../images/avatar.png')}
                         />
                     </View>
 
                     <View style={styles.container_skill_1}>
                         <Image
                             style={styles.skill}
-                            source={require('./images/skill_1.png')}
+                            source={require('../images/skill_1.png')}
                         />
                     </View>
                     <View style={styles.container_skill_2}>
                         <Image
                             style={styles.skill}
-                            source={require('./images/skill_2.png')}
+                            source={require('../images/skill_2.png')}
                         />
                     </View>
                     <View style={styles.container_skill_3}>
                         <Image
                             style={styles.skill}
-                            source={require('./images/skill_3.png')}
+                            source={require('../images/skill_3.png')}
                         />
                     </View>
                 </View>

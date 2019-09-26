@@ -1,13 +1,14 @@
 import React from 'react';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
-import CameraView from './CameraView';
-import AuthView from './AuthView';
-import HomeView from './HomeView';
-import ProfileView from './ProfileView';
-import MisionListView from './MisionListView';
-import MisionDetailView from './MisionDetailView';
-import CartoonView from './CartoonView';
+import CameraView from './views/CameraView';
+import AuthView from './views/AuthView';
+import HomeView from './views/HomeView';
+import ProfileView from './views/ProfileView';
+import MisionListView from './views/MisionListView';
+import MisionDetailView from './views/MisionDetailView';
+import CartoonView from './views/CartoonView';
+import EvidenceView from './views/EvidenceView';
 
 const MainNavigator = createStackNavigator({
     HomeView: {screen: HomeView},
@@ -17,6 +18,7 @@ const MainNavigator = createStackNavigator({
     MisionListView: {screen: MisionListView},
     MisionDetailView: {screen: MisionDetailView},
     CartoonView: {screen: CartoonView},
+    EvidenceView: {screen: EvidenceView},
 
 });
 

@@ -17,8 +17,8 @@ export default class CartoonView extends React.Component {
         return (
             <ScrollView>
                 <Text style={styles.title}>Historia gráfica</Text>
-                <Image source={require("./images/cartoon_1.png")}/>
-                <Image source={require("./images/cartoon_2.png")}/>
+                <Image source={require("../images/cartoon_1.png")}/>
+                <Image source={require("../images/cartoon_2.png")}/>
                 <Button onPress={()=>{this.state.navigate('MisionDetailView', {mision: this.state.mision})}}
                 title="Ir a la misión"/>
             </ScrollView>

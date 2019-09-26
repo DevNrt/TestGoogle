@@ -30,7 +30,7 @@ export default class MisionDetailView extends React.Component {
                                 chevron = { !item.completed }
                                 checkmark = { item.completed }
                                 disabled={item.completed}
-                                onPress={() => { this.state.navigate('CameraView') }}
+                                onPress={() => { this.state.navigate('EvidenceView', {mision: this.state.mision, activity: item.id}) }}
                             />
                         ))
                     }

@@ -47,7 +47,7 @@ export default class HomeView extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <ImageBackground source={require('./images/background_home.png')} style={styles.background}>
+                <ImageBackground source={require('../images/background_home.png')} style={styles.background}>
                     <View style={styles.container_button}>
                         <Button
                             style={styles.button}
