@@ -1,6 +1,9 @@
 import React from 'react';
 import { AppRegistry, Button, View, ImageBackground } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import {GoogleSignin} from "react-native-google-signin";
+import Constants from "../utils/Constants";
+import StringsLanguage from '../utils/StringsLanguage';
 
 export default class HomeView extends React.Component {
     static navigationOptions = {
@@ -10,12 +13,13 @@ export default class HomeView extends React.Component {
         super(props);
         this.state = {
             navigate: this.props.navigation.navigate,
-        }
+            labelButton: ''
+        };
+        this.loadLanguage();
     }
 
     async componentDidMount(): void {
         HomeView.configureGoogleSignIn();
-
     }
 
     static configureGoogleSignIn() {
@@ -29,29 +33,34 @@ export default class HomeView extends React.Component {
         const isSignedIn = await GoogleSignin.isSignedIn();
 
         if(isSignedIn){
-            this.goToProfile();
+            this.state.navigate('ProfileView');
         }else{
             this.state.navigate('AuthView');
         }
     }
 
-    async goToProfile(){
-        const userInfo = await GoogleSignin.getCurrentUser();
-        this.state.navigate('ProfileView', {
-            email: userInfo.email,
-            name: userInfo.name,
-            id: userInfo.id
-        })
+    async loadLanguage(){
+        try {
+            let language = await AsyncStorage.getItem('language');
+            if(language === undefined || language === null){
+                language = Constants.DEFAULT_LANGUAGE;
+                await AsyncStorage.setItem('language', language);
+            }
+            StringsLanguage.setLanguage(language);
+            this.setState({labelButton: StringsLanguage.start_button})
+        } catch (error) {
+            console.log('Error', error);
+        }
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <ImageBackground source={require('./images/background_home.png')} style={styles.background}>
+                <ImageBackground source={require('../images/background_home.png')} style={styles.background}>
                     <View style={styles.container_button}>
                         <Button
                             style={styles.button}
-                            title='Ingresar'
+                            title={this.state.labelButton}
                             onPress={() => this.verifyAuth()}
                         />
                     </View>

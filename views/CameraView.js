@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppRegistry, Button, Text, View } from 'react-native';
+import { AppRegistry, Button, Text, View, Alert } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
 
@@ -8,15 +8,18 @@ export default class CameraView extends React.Component {
     constructor(props) {
         super(props);
         this.camera = null;
-        this.barcodeCodes = [];
 
         this.state = {
+            navigate: this.props.navigation.navigate,
+            mision: this.props.navigation.getParam('mision'),
+            activity: this.props.navigation.getParam('activity'),
             camera: {
                 type: RNCamera.Constants.Type.back,
                 flashMode: RNCamera.Constants.FlashMode.auto,
             }
         };
     }
+
     static navigationOptions = {
         title: 'Camara',
     };
@@ -33,15 +36,14 @@ export default class CameraView extends React.Component {
                     mirrorImage={false}
                     onFocusChanged={() => {}}
                     onZoomChanged={() => {}}
-                    permissionDialogTitle={'Permission to use camera'}
-                    permissionDialogMessage={'We need your permission to use your camera phone'}
                     style={styles.preview}
                     type={this.state.camera.type}
+                    captureAudio={false}
                 />
                 <View style={[styles.overlay, styles.bottomOverlay]}>
                     <Button
-                        title="Ir a vista de login"
-                        onPress={() => navigate('AuthView', {name: 'Jane'})}
+                        title="Tomar foto"
+                        onPress={() => this.takePicture()}
                     />
                 </View>
 
@@ -52,9 +54,15 @@ export default class CameraView extends React.Component {
 
     async takePicture() {
         if (this.camera) {
-            const options = { quality: 0.5, base64: true };
-            const data = await this.camera.takePictureAsync(options);
-            console.log(data.uri);
+            const options = { quality: 0.5 };
+            try {
+                const data = await this.camera.takePictureAsync(options);
+                this.state.navigate('EvidenceView', { pathPhoto: data.uri, mision: this.state.mision, activity: this.state.activity })
+            }catch (e) {
+                Alert.alert('error', e.toString())
+            }
+
+
         }
     }
 }

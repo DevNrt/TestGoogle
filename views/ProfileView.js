@@ -1,6 +1,8 @@
 import React from 'react';
 import { AppRegistry, Image, View, Text, TouchableHighlight } from 'react-native';
 import { GoogleSignin } from 'react-native-google-signin';
+import StringsLanguage from '../utils/StringsLanguage';
+import { Icon } from 'react-native-elements';
 
 export default class ProfileView extends React.Component {
 
@@ -8,18 +10,18 @@ export default class ProfileView extends React.Component {
         super(props);
         this.state = {
             navigate: this.props.navigation.navigate,
-            user: {},
+            userInfo: {},
             evocoins: 0
         }
     }
 
     static navigationOptions = {
-        title: 'Profile',
+        drawerLabel: 'Home'
     };
 
     async componentDidMount(): void {
-        let userInfo = await GoogleSignin.getCurrentUser();
-        this.setState({user: userInfo.user});
+        const userInfo = await GoogleSignin.getCurrentUser();
+        this.setState({userInfo: userInfo.user});
         this.getEvocoins();
     }
 
@@ -29,32 +31,42 @@ export default class ProfileView extends React.Component {
 
             <View style={styles.container}>
                 <View style={styles.container_username}>
-                    <Text style={styles.username}> {(!!this.state.user.name) ? this.state.user.name : 'Ha ocurrido un problema' } </Text>
+                    <Text style={styles.username}> {(!!this.state.userInfo.name) ? this.state.userInfo.name : 'Ha ocurrido un problema' } </Text>
                 </View>
                 <View>
                     <View>
                         <Image
                             style={styles.avatar}
-                            source={require('./images/avatar.png')}
+                            source={require('../images/avatar.png')}
                         />
                     </View>
 
                     <View style={styles.container_skill_1}>
                         <Image
                             style={styles.skill}
-                            source={require('./images/skill_1.png')}
+                            source={require('../images/skill_1.png')}
                         />
                     </View>
                     <View style={styles.container_skill_2}>
                         <Image
                             style={styles.skill}
-                            source={require('./images/skill_2.png')}
+                            source={require('../images/skill_2.png')}
                         />
                     </View>
                     <View style={styles.container_skill_3}>
                         <Image
                             style={styles.skill}
-                            source={require('./images/skill_3.png')}
+                            source={require('../images/skill_3.png')}
+                        />
+                    </View>
+                    <View style={styles.container_settings}>
+                        <Icon
+                            reverse
+                            name='ios-settings'
+                            type='ionicon'
+                            color='#517fa4'
+                            size={23}
+                            onPress={() => {this.state.navigate('SettingsView')} }
                         />
                     </View>
                 </View>
@@ -64,7 +76,7 @@ export default class ProfileView extends React.Component {
                     </View>
                     <TouchableHighlight style={styles.item} onPress={() => this.state.navigate('MisionListView')}>
                         <View>
-                            <Text style={styles.text_buttons}>Ver misiones</Text>
+                            <Text style={styles.text_buttons}>{StringsLanguage.view_missions_label}</Text>
                         </View>
                     </TouchableHighlight >
                 </View>
@@ -80,7 +92,7 @@ export default class ProfileView extends React.Component {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                email: this.state.user.email
+                email: this.state.userInfo.email
             }),
         }).then((response) => response.json())
             .then((responseJson) => {
@@ -154,6 +166,11 @@ const styles = {
         color: '#fff',
         fontWeight: 'bold',
         textAlign: 'center',
+    },
+    container_settings: {
+        position: 'absolute',
+        right: -50,
+        top: 180
     }
 };
 

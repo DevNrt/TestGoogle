@@ -32,6 +32,10 @@ target 'evoke' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'ReactNativeLocalization', :path => '../node_modules/react-native-localization'
+
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+
   target 'evokeTests' do
     inherit! :search_paths
     # Pods for testing

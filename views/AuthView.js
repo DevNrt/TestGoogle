@@ -1,6 +1,8 @@
 import React from 'react';
-import { AppRegistry, StyleSheet, Text, View, Alert, Button } from 'react-native';
-import { GoogleSignin, GoogleSigninButton, statusCodes, AsyncStorage } from 'react-native-google-signin';
+import { AppRegistry, StyleSheet, View, Alert, Button } from 'react-native';
+import { GoogleSignin, GoogleSigninButton, statusCodes } from 'react-native-google-signin';
+import AsyncStorage from "@react-native-community/async-storage";
+import config from "../config";
 
 export default class AuthView extends React.Component {
 
@@ -16,9 +18,18 @@ export default class AuthView extends React.Component {
     }
   }
 
+  async componentDidMount(){
+    this.configureGoogleSignIn();
+  }
 
+  configureGoogleSignIn() {
+    GoogleSignin.configure({
+      webClientId: config.CLIENT_ID,
+      offlineAccess: false
+    });
+  }
 
-  storeToken = async (key, value) => {
+  async storeToken (key, value) {
     try {
       await AsyncStorage.setItem(key, value);
     } catch (error) {
@@ -58,12 +69,7 @@ export default class AuthView extends React.Component {
   }
 
   async goToProfile(){
-    const userInfo = await GoogleSignin.getCurrentUser();
-    this.state.navigate('ProfileView', {
-      email: userInfo.email,
-      name: userInfo.name,
-      id: userInfo.id
-    })
+    this.state.navigate('ProfileView');
   }
 
   signIn = async () => {
@@ -85,7 +91,7 @@ export default class AuthView extends React.Component {
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         Alert.alert('play services not available or outdated');
       } else {
-        Alert.alert('Something went wrong', error.toString());
+        Alert.alert('Something went wrong', JSON.stringify(error));
         this.setState({
           error,
         });
