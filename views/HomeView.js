@@ -63,6 +63,11 @@ export default class HomeView extends React.Component {
                             title={this.state.labelButton}
                             onPress={() => this.verifyAuth()}
                         />
+                        <Button
+                            style={styles.button}
+                            title='Validar código de invitación'
+                            onPress={() => this.state.navigate('CodeValidationView')}
+                        />
                     </View>
                 </ImageBackground>
             </View>

@@ -10,6 +10,7 @@ import MisionDetailView from './views/MisionDetailView';
 import CartoonView from './views/CartoonView';
 import EvidenceView from './views/EvidenceView';
 import SettingsView from './views/SettingsView';
+import CodeValidationView from './views/CodeValidationView';
 
 const MainNavigator = createStackNavigator({
     HomeView: {screen: HomeView},
@@ -21,6 +22,7 @@ const MainNavigator = createStackNavigator({
     CartoonView: {screen: CartoonView},
     EvidenceView: {screen: EvidenceView},
     SettingsView: {screen: SettingsView},
+    CodeValidationView: {screen: CodeValidationView},
 });
 
 const App = createAppContainer(MainNavigator);
