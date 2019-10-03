@@ -1,6 +1,7 @@
 import React from 'react';
 import {AppRegistry, ScrollView, Text, Button, TextInput, Alert, Image} from 'react-native';
 import { Icon } from 'react-native-elements';
+import StringsLanguage from '../utils/StringsLanguage';
 
 export default class EvidenceView extends React.Component {
     static navigationOptions = {
@@ -22,7 +23,7 @@ export default class EvidenceView extends React.Component {
     render() {
         return (
             <ScrollView>
-                <Text style={styles.title}>Evidencia Actividad {this.state.activity}</Text>
+                <Text style={styles.title}>{StringsLanguage.title_section_evidence} {this.state.activity}</Text>
                 { (this.state.pathPhoto) ?
                     <Image style={{width: 200, height: 200}} source={{uri: this.state.pathPhoto, isStatic:true}}/> :
                     <Icon
@@ -38,9 +39,9 @@ export default class EvidenceView extends React.Component {
 
                 <TextInput
                     style={styles.textInput}
-                    placeholder="Descripción de la evidencia"
+                    placeholder={StringsLanguage.evidence_placeholder_description}
                 />
-                <Button title='Enviar' onPress={() => this.state.navigate('MisionDetailView', {mison: this.state.mision})}/>
+                <Button title={StringsLanguage.send_evidence_button} onPress={() => this.state.navigate('MisionDetailView', {mison: this.state.mision})}/>
             </ScrollView>
         );
     }

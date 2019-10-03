@@ -13,7 +13,8 @@ export default class HomeView extends React.Component {
         super(props);
         this.state = {
             navigate: this.props.navigation.navigate,
-            labelButton: ''
+            labelStartButton: '',
+            labelValidateButton: ''
         };
         this.loadLanguage();
     }
@@ -47,7 +48,10 @@ export default class HomeView extends React.Component {
                 await AsyncStorage.setItem('language', language);
             }
             StringsLanguage.setLanguage(language);
-            this.setState({labelButton: StringsLanguage.start_button})
+            this.setState({
+                labelStartButton: StringsLanguage.start_button,
+                labelValidateButton: StringsLanguage.validate_button
+            })
         } catch (error) {
             console.log('Error', error);
         }
@@ -60,12 +64,12 @@ export default class HomeView extends React.Component {
                     <View style={styles.container_button}>
                         <Button
                             style={styles.button}
-                            title={this.state.labelButton}
+                            title={this.state.labelStartButton}
                             onPress={() => this.verifyAuth()}
                         />
                         <Button
                             style={styles.button}
-                            title='Validar código de invitación'
+                            title={this.state.labelValidateButton}
                             onPress={() => this.state.navigate('CodeValidationView')}
                         />
                     </View>

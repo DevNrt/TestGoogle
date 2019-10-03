@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppRegistry, Button, Text, View, Alert } from 'react-native';
 import { RNCamera } from 'react-native-camera';
-
+import StringsLanguage from '../utils/StringsLanguage';
 
 export default class CameraView extends React.Component {
 
@@ -21,10 +21,9 @@ export default class CameraView extends React.Component {
     }
 
     static navigationOptions = {
-        title: 'Camara',
+        title: StringsLanguage.title_toolbar_section_camera,
     };
     render() {
-        const {navigate} = this.props.navigation;
         return (
             <View style={styles.container}>
                 <RNCamera
@@ -42,7 +41,7 @@ export default class CameraView extends React.Component {
                 />
                 <View style={[styles.overlay, styles.bottomOverlay]}>
                     <Button
-                        title="Tomar foto"
+                        title={StringsLanguage.take_photo_button}
                         onPress={() => this.takePicture()}
                     />
                 </View>

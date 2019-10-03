@@ -1,5 +1,6 @@
 import React from 'react';
 import { AppRegistry, ScrollView, Text, Image, Button } from 'react-native';
+import StringsLanguage from '../utils/StringsLanguage';
 
 export default class CartoonView extends React.Component {
     static navigationOptions = {
@@ -16,11 +17,11 @@ export default class CartoonView extends React.Component {
     render() {
         return (
             <ScrollView>
-                <Text style={styles.title}>Historia gráfica</Text>
+                <Text style={styles.title}>{StringsLanguage.title_section_cartoon}</Text>
                 <Image source={require("../images/cartoon_1.png")}/>
                 <Image source={require("../images/cartoon_2.png")}/>
                 <Button onPress={()=>{this.state.navigate('MisionDetailView', {mision: this.state.mision})}}
-                title="Ir a la misión"/>
+                title={StringsLanguage.go_to_mision_button}/>
             </ScrollView>
         );
     }

@@ -1,5 +1,6 @@
 import React from 'react';
 import {AppRegistry, View, TextInput, Alert, Button} from 'react-native';
+import StringsLanguage from '../utils/StringsLanguage';
 
 export default class CodeValidationView extends React.Component {
     static navigationOptions = {
@@ -18,11 +19,11 @@ export default class CodeValidationView extends React.Component {
             this.state.navigate('AuthView');
         }else{
             Alert.alert(
-                'Código no válido',
-                `Por favor verifica que el código sea exactamente igual al compartido`,
+                StringsLanguage.title_error_validation,
+                StringsLanguage.content_error_validation,
                 [
                     {
-                        text: 'Aceptar'
+                        text: StringsLanguage.accept_error_validation
                     }
                 ],
                 {cancelable: false}
@@ -40,7 +41,7 @@ export default class CodeValidationView extends React.Component {
                         />
                         <Button
                             style={styles.button}
-                            title='Validar'
+                            title={StringsLanguage.code_validate_button}
                             onPress={() => this.codeValidate()}
                         />
                     </View>

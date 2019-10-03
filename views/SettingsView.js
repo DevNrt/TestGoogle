@@ -25,15 +25,15 @@ export default class SettingsView extends React.Component {
 
     showCodeInvitation(){
         Alert.alert(
-            'Código de invitación',
-            `Invita a tus amigos a vivir una gran experiencia con Evoke`,
+            StringsLanguage.title_popup_share,
+            StringsLanguage.message_popup_share,
             [
                 {
-                    text: 'Compartir',
+                    text: StringsLanguage.button_popup_share,
                     onPress: () => this.shareCodeInvitation()
                 },
                 {
-                    text: 'Cancel',
+                    text: StringsLanguage.button_cancel_popup_share,
                     style: 'cancel',
                 }
             ],
@@ -46,7 +46,7 @@ export default class SettingsView extends React.Component {
         try {
             const result = await Share.share({
                 message:
-                `Evoke | Este es el código de invitación para unirte a Evoke: ${code}`,
+                `${StringsLanguage.message_share_code} ${code}`,
             });
 
             if (result.action === Share.sharedAction) {
@@ -67,23 +67,22 @@ export default class SettingsView extends React.Component {
     render() {
         return (
             <View>
-                <Text style={styles.title}>Configuración</Text>
+                <Text style={styles.title}>{StringsLanguage.title_section_settings}</Text>
                 <View >
                     <Picker style={styles.picker}
                             selectedValue={this.state.language}
                             onValueChange={(itemValue) => this.saveLanguage(itemValue)}>
-                        <Picker.Item value="en-us" label="Inglés" />
-                        <Picker.Item value="es-co" label="Español" />
+                        <Picker.Item value="en-us" label={StringsLanguage.option_english_language} />
+                        <Picker.Item value="es-co" label={StringsLanguage.option_spanish_language} />
                     </Picker>
                 </View>
                 <View>
-                    <Button title="Invitar a mis amigos" onPress={() => {this.showCodeInvitation()}}/>
+                    <Button title={StringsLanguage.invite_button} onPress={() => {this.showCodeInvitation()}}/>
                 </View>
                 <View>
-                    <Button title="Regresar" onPress={() => {this.state.navigate('ProfileView')}}/>
+                    <Button title={StringsLanguage.back_button} onPress={() => {this.state.navigate('ProfileView')}}/>
                 </View>
             </View>
-
         );
     }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { AppRegistry, View, Text } from 'react-native';
 import { ListItem } from 'react-native-elements'
+import StringsLanguage from '../utils/StringsLanguage';
 
 export default class MisionDetailView extends React.Component {
     static navigationOptions = {
@@ -86,7 +87,7 @@ export default class MisionDetailView extends React.Component {
     render() {
         return (
             <View>
-                <Text style={styles.title}>Misiones</Text>
+                <Text style={styles.title}>{StringsLanguage.title_section_mission_list}</Text>
                 {
                     this.state.list.map((item, i) => (
                         <ListItem

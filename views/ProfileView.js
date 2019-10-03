@@ -76,7 +76,7 @@ export default class ProfileView extends React.Component {
                     </View>
                     <TouchableHighlight style={styles.item} onPress={() => this.state.navigate('MisionListView')}>
                         <View>
-                            <Text style={styles.text_buttons}>{StringsLanguage.view_missions_label}</Text>
+                            <Text style={styles.text_buttons}>{StringsLanguage.view_missions_button}</Text>
                         </View>
                     </TouchableHighlight >
                 </View>
