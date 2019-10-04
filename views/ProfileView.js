@@ -11,7 +11,8 @@ export default class ProfileView extends React.Component {
         this.state = {
             navigate: this.props.navigation.navigate,
             userInfo: {},
-            evocoins: 0
+            evocoins: 0,
+            language: (!!this.props.navigation.getParam('language')) ? this.props.navigation.navigate.getParam('language') : null
         }
     }
 

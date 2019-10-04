@@ -80,7 +80,7 @@ export default class SettingsView extends React.Component {
                     <Button title={StringsLanguage.invite_button} onPress={() => {this.showCodeInvitation()}}/>
                 </View>
                 <View>
-                    <Button title={StringsLanguage.back_button} onPress={() => {this.state.navigate('ProfileView')}}/>
+                    <Button title={StringsLanguage.back_button} onPress={() => {this.state.navigate('ProfileView', {language: this.state.language})}}/>
                 </View>
             </View>
         );
